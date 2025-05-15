@@ -177,10 +177,34 @@ public class NewJFrame extends javax.swing.JFrame {
             File kivalasztottFajl = jfc.getSelectedFile();
             try {
                 String sorok = Files.readString(kivalasztottFajl.toPath());
-                System.out.println("A beolvasott fájl tartalma: ");
+                
                 System.out.println(sorok);
                 
-                /* sorok feldolgozása */
+                String[] adatok = sorok.trim().split("\n");
+                String[] nevAdat = adatok[0].split(": ");
+                
+                txtNev.setText(nevAdat[1]);
+                
+                String[] szakAdat = adatok[1].split(": ");
+                
+                String szakSzam = szakAdat[1].substring(szakAdat[1].length() - 2, szakAdat[1].length() -1);
+                
+                int szak = Integer.parseInt(szakSzam);
+                cmbSzak.setSelectedIndex(szak);
+                
+                String[] hirlevelAdat = adatok[2].split(": ");
+                
+                if (hirlevelAdat[1].equals("kér"))
+                {
+                    chbHirlevel.setSelected(true);
+                }
+                else
+                {
+                    chbHirlevel.setSelected(false);
+                }
+                
+                
+                
                 
             } catch (IOException ex) {
                 Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
